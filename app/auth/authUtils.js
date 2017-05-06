@@ -14,7 +14,6 @@ exports.validatePassword = (password, hash) => {
 }
 
 exports.validateUser = (user) => {
-  console.log(user, '... are we getting here')
   return bcrypt.compare(user.submittedPassword, user.password).then(res => {
     return new Promise((resolve, reject) => {
       if (res) {
