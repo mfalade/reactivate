@@ -1,7 +1,6 @@
 const User = require(`${BASE_DIR}/models/user.model`);
 const authUtils = require(`${BASE_DIR}/auth/authUtils`);
 
-
 exports.loginUser = (req, res) => {
   User.compileUserInfo(req.body)
     .then(authUtils.validateUser)

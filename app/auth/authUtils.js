@@ -5,11 +5,9 @@ exports.generateSalt = rounds => {
   return bcrypt.genSaltSync(rounds)
 }
 
-
 exports.hashPassword = (password, salt) => {
   return bcrypt.hashSync(password, salt);
 }
-
 
 exports.validatePassword = (password, hash) => {
   return bcrypt.compare(password, hash);
@@ -27,7 +25,6 @@ exports.validateUser = (user) => {
     });
   });
 }
-
 
 exports.generateToken = user => {
   return new Promise((resolve, reject) => {
