@@ -10,6 +10,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const baseRouter = require(`${BASE_DIR}/routes`);
 
+mongoose.Promise = global.Promise;
 mongoose.connect(config.database.url);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, '.. DB Connection Failed'));

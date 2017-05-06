@@ -1,21 +1,23 @@
-const bcrypt = require('bcrypt');
 const uniqid = require('uniqid');
+const authUtils = require(`${BASE_DIR}/auth/authUtils`);
 
 const userSchema = mongoose.Schema({ 
-    username: String,
     salt: String,
+    username: {type: String, unique: true},
     password: String,
     isVerified: {type: Boolean, default: false}, 
     createdOn: {type: Date, default: Date.now},
-    verificationUrl: String
+    verificationCode: String
 });
 
 userSchema.pre('save', function(next) {
-  const uniqueId = uniqid(config.appName)
-  this.salt = bcrypt.genSaltSync(10);
-  this.password = bcrypt.hashSync(this.password, this.salt);
-  this.verificationUrl = `${config.host}/auth/verify/?verificationCode=${uniqueId}&username=${this.username}`;
+
+  this.salt = authUtils.generateSalt(10);
+  this.password = authUtils.hashPassword(this.password, this.salt);
+  this.verificationCode = uniqid(config.appName);
+
   next();
+
 });
 
 const User = mongoose.model('User', userSchema);
