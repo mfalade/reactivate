@@ -22,7 +22,8 @@ const authenticate = entry => {
 
 
 exports.loginUser = (req, res) => {
-  authenticate(req.body)
+  User.compileUserInfo(req.body)
+    .then(authUtils.validateUser)
     .then(authUtils.generateToken)
     .then(token => {
       res.status(200).send({token: token});

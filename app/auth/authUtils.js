@@ -15,6 +15,19 @@ exports.validatePassword = (password, hash) => {
   return bcrypt.compare(password, hash);
 }
 
+exports.validateUser = (user) => {
+  console.log(user, '... are we getting here')
+  return bcrypt.compare(user.submittedPassword, user.password).then(res => {
+    return new Promise((resolve, reject) => {
+      if (res) {
+        resolve(user);
+      } else {
+        reject('Username or Password Incorrect.');
+      }
+    });
+  });
+}
+
 
 exports.generateToken = user => {
   return new Promise((resolve, reject) => {
