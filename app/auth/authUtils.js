@@ -21,7 +21,8 @@ exports.generateToken = user => {
     const data = {
       username: user.username,
       isVerified: user.isVerified,
-      lastLoggedInAt: new Date()
+      lastLoggedInAt: new Date(),
+      isAdmin: false
     }
     const token = jwt.sign(data, config.secret, { expiresIn: 10 });
     resolve(token);

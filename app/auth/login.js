@@ -10,9 +10,7 @@ const authenticate = entry => {
       } else {
         authUtils.validatePassword(entry.password, user.password).then(res => {
           if (res) {
-            authUtils.generateToken(user).then(token => {
-              resolve(token);
-            });
+            resolve(user);
           } else {
             reject('Username or Password Incorrect.');
           }
@@ -25,6 +23,7 @@ const authenticate = entry => {
 
 exports.loginUser = (req, res) => {
   authenticate(req.body)
+    .then(authUtils.generateToken)
     .then(token => {
       res.status(200).send({token: token});
     }).catch(err => {
