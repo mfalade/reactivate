@@ -33,7 +33,7 @@ userSchema.statics.compileUserInfo = function(user) {
         reject('Username or Password Incorrect.');
       }
     });
-  })
+  });
 }
 
 const User = mongoose.model('User', userSchema);
