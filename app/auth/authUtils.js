@@ -13,7 +13,7 @@ exports.validatePassword = (password, hash) => {
   return bcrypt.compare(password, hash);
 }
 
-exports.validateUser = (user) => {
+exports.validateUser = user => {
   return bcrypt.compare(user.submittedPassword, user.password).then(res => {
     return new Promise((resolve, reject) => {
       if (res) {
